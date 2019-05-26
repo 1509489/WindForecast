@@ -44,7 +44,6 @@ class NetworkModule {
 
     @Provides
     @ApplicationScope
-    @Named("weather")
     fun providesRetrofitClient(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
