@@ -13,5 +13,5 @@ interface LocationDao {
     fun insert(location: LocationEntity)
 
     @Query("SELECT * FROM location_table ORDER BY name ASC")
-    fun getLocations():LiveData<LocationEntity>
+    fun getLocations():LiveData<List<LocationEntity>>
 }
