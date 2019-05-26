@@ -5,7 +5,9 @@ import com.pixelart.windforecast.data.dto.City
 import com.pixelart.windforecast.data.entities.LocationEntity
 
 interface LocationRepository {
-    fun addLocations(location: LocationEntity)
+    //fun addLocations(location: LocationEntity)
     fun getLocations():LiveData<List<LocationEntity>>
-    fun getLocationNetwork(locationName: String): LiveData<City>
+    fun getLocationNetwork(locationName: String)
+    fun dispose()
+    fun getErrorMessage():LiveData<String>
 }

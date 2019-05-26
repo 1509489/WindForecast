@@ -18,25 +18,38 @@ class LocationRepositoryImpl(private val networkService: NetworkService, private
     private val errorMessage = MutableLiveData<String>()
 
 
-    override fun addLocations(location: LocationEntity) {
+    /*override fun addLocations(location: LocationEntity) {
         Thread{
             database.getLocationDao().insert(location)
         }.start()
-    }
+    }*/
 
     override fun getLocations(): LiveData<List<LocationEntity>> = database.getLocationDao().getLocations()
 
-    override fun getLocationNetwork(locationName: String): LiveData<City> {
+    override fun getLocationNetwork(locationName: String){
         compositeDisposable.add(
             networkService.getWindForecast(locationName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnEvent { response, error ->
+                    database.getLocationDao().insert(
+                        LocationEntity(name = response.city.name,
+                            countryCode = response.city.country,
+                            population = response.city.population)
+                    )
+                    onError(error.localizedMessage!!)
+                }
                 .subscribe(
-                    {response -> location.value = response.city },
+                    /*{response -> location.value = response.city },
                     {error -> onError(error.message!!)
-                    error.printStackTrace()}
+                    error.printStackTrace()}*/
                 ))
-        return location
+    }
+
+    override fun getErrorMessage(): LiveData<String> = errorMessage
+
+    override fun dispose() {
+        compositeDisposable.clear()
     }
 
     private fun onError(error: String){
