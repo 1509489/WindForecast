@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
+            app:startDestination="@id/locationFragment">
+
+    <fragment android:id="@+id/locationFragment"
+              android:name="com.pixelart.windforecast.ui.locationscreen.LocationFragment"
+              android:label="Favourite Locations" tools:layout="@layout/fragment_location">
+        <action android:id="@+id/action_locations_to_details" app:destination="@id/detailFragment"/>
+    </fragment>
+    <fragment android:id="@+id/detailFragment" android:name="com.pixelart.windforecast.ui.detailscreen.DetailFragment"
+              android:label="fragment_detail" tools:layout="@layout/fragment_detail"/>
+</navigation>
