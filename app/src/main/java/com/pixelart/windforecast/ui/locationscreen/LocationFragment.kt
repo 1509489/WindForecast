@@ -42,6 +42,7 @@ class LocationFragment : Fragment(), LocationsAdapter.OnItemClickedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        rootView.tvMessage.visibility = View.INVISIBLE
 
         rootView.rvLocations.apply {
             layoutManager = LinearLayoutManager(this@LocationFragment.context)
@@ -50,7 +51,7 @@ class LocationFragment : Fragment(), LocationsAdapter.OnItemClickedListener {
         }
 
         rootView.btnAdd.setOnClickListener {
-            //val action =
+            //Navigation.findNavController(it).navigate(R.id.addLocationFragment)
             AddLocationBottomSheet().show(fragmentManager!!, "")
         }
     }
@@ -60,10 +61,15 @@ class LocationFragment : Fragment(), LocationsAdapter.OnItemClickedListener {
 
         viewModel.getLocations().observe(this, Observer {locations ->
             rvAdapter.submitList(locations)
+
+            if (rvAdapter.itemCount == 0)
+                rootView.tvMessage.visibility = View.VISIBLE
         })
 
         viewModel.showMessage().observe(this, Observer {
             Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
+            if (it.contains("success", true))
+                rootView.tvMessage.visibility = View.INVISIBLE
         })
     }
 
