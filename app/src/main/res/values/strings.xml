@@ -7,4 +7,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_location_name">Enter Location Name</string>
+    <string name="info_button">Info Button</string>
+    <string name="add_location">Add Location</string>
+    <string name="add_favourite_location">Add Favourite Location</string>
 </resources>

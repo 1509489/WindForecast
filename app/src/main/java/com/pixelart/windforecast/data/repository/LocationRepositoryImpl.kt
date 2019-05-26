@@ -8,20 +8,19 @@ import com.pixelart.windforecast.data.network.NetworkService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import okhttp3.ResponseBody
-import retrofit2.Response
 
 class LocationRepositoryImpl(private val networkService: NetworkService, private val database: LocationDatabase):
     LocationRepository {
 
     private val compositeDisposable = CompositeDisposable()
-    private val errorMessage = MutableLiveData<String>()
+    private val message = MutableLiveData<String>()
 
 
     private fun addLocations(location: LocationEntity) {
         Thread{
             database.getLocationDao().insert(location)
         }.start()
+        message.value = "success"
     }
 
     override fun getLocations(): LiveData<List<LocationEntity>> = database.getLocationDao().getLocations()
@@ -42,12 +41,12 @@ class LocationRepositoryImpl(private val networkService: NetworkService, private
                 .subscribe(
                     { },
                     {error -> error.printStackTrace()
-                    errorMessage.value = "City not found"}
+                    message.value = "City not found"}
                 )
         )
     }
 
-    override fun getErrorMessage(): LiveData<String> = errorMessage
+    override fun getErrorMessage(): LiveData<String> = message
 
     override fun dispose() {
         compositeDisposable.clear()

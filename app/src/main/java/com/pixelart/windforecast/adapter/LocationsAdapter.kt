@@ -31,7 +31,8 @@ class LocationsAdapter(private val listener: OnItemClickedListener):
         private val population: TextView = view.findViewById(R.id.tvPopulation)
         
         fun setContent(location: LocationEntity){
-            locationName.text = location.name
+            val name = "${location.name}, ${location.countryCode}"
+            locationName.text = name
             val populationText = "${itemView.context.resources.getString(R.string.population)} ${location.population}"
             population.text = populationText
         }

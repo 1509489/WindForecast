@@ -48,6 +48,11 @@ class LocationFragment : Fragment(), LocationsAdapter.OnItemClickedListener {
             addItemDecoration(DividerItemDecoration(this@LocationFragment.context, LinearLayoutManager.VERTICAL))
             adapter = rvAdapter
         }
+
+        rootView.btnAdd.setOnClickListener {
+            //val action =
+            AddLocationBottomSheet().show(fragmentManager!!, "")
+        }
     }
 
     override fun onResume() {
@@ -57,7 +62,7 @@ class LocationFragment : Fragment(), LocationsAdapter.OnItemClickedListener {
             rvAdapter.submitList(locations)
         })
 
-        viewModel.showErrorMessage().observe(this, Observer {
+        viewModel.showMessage().observe(this, Observer {
             Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
         })
     }

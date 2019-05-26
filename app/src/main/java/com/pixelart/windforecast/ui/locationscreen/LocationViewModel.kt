@@ -7,7 +7,7 @@ class LocationViewModel(private val repository: LocationRepositoryImpl):ViewMode
 
     fun getLocations() = repository.getLocations()
     fun addLocation(location: String) = repository.getLocationNetwork(location)
-    fun showErrorMessage() = repository.getErrorMessage()
+    fun showMessage() = repository.getErrorMessage()
 
     override fun onCleared() {
         super.onCleared()

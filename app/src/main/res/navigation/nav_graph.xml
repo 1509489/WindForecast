@@ -8,7 +8,12 @@
               android:name="com.pixelart.windforecast.ui.locationscreen.LocationFragment"
               android:label="Favourite Locations" tools:layout="@layout/fragment_location">
         <action android:id="@+id/action_locations_to_details" app:destination="@id/detailFragment"/>
+        <action android:id="@+id/action_locations_to_addLocation"
+                app:destination="@id/addLocationBottomSheet"/>
     </fragment>
     <fragment android:id="@+id/detailFragment" android:name="com.pixelart.windforecast.ui.detailscreen.DetailFragment"
               android:label="fragment_detail" tools:layout="@layout/fragment_detail"/>
+    <fragment android:id="@+id/addLocationBottomSheet"
+              android:name="com.pixelart.windforecast.ui.locationscreen.AddLocationBottomSheet"
+              android:label="Add Location"/>
 </navigation>

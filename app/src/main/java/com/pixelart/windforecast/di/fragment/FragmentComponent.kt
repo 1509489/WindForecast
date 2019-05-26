@@ -1,6 +1,7 @@
 package com.pixelart.windforecast.di.fragment
 
 import com.pixelart.windforecast.ui.detailscreen.DetailFragment
+import com.pixelart.windforecast.ui.locationscreen.AddLocationBottomSheet
 import com.pixelart.windforecast.ui.locationscreen.LocationFragment
 import dagger.Subcomponent
 
@@ -9,4 +10,5 @@ import dagger.Subcomponent
 interface FragmentComponent {
     fun injectLocationScreen(locationFragment: LocationFragment)
     fun injectDetailScreen(detailFragment: DetailFragment)
+    fun injectAddLocation(addLocationBottomSheet: AddLocationBottomSheet)
 }
