@@ -3,7 +3,6 @@ package com.pixelart.windforecast.data.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.pixelart.windforecast.data.database.LocationDatabase
-import com.pixelart.windforecast.data.dto.City
 import com.pixelart.windforecast.data.entities.LocationEntity
 import com.pixelart.windforecast.data.network.NetworkService
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -13,37 +12,43 @@ import io.reactivex.schedulers.Schedulers
 class LocationRepositoryImpl(private val networkService: NetworkService, private val database: LocationDatabase):
     LocationRepository {
 
-    private val location = MutableLiveData<City>()
     private val compositeDisposable = CompositeDisposable()
-    private val errorMessage = MutableLiveData<String>()
+    private val message = MutableLiveData<String>()
 
 
-    override fun addLocations(location: LocationEntity) {
+    private fun addLocations(location: LocationEntity) {
         Thread{
             database.getLocationDao().insert(location)
         }.start()
+        message.value = "success"
     }
 
     override fun getLocations(): LiveData<List<LocationEntity>> = database.getLocationDao().getLocations()
 
-    override fun getLocationNetwork(locationName: String): LiveData<City> {
+    override fun getLocationNetwork(locationName: String){
         compositeDisposable.add(
             networkService.getWindForecast(locationName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnEvent{ response, _ ->
+                    if (response.cod == "200"){
+                        addLocations(LocationEntity(name = response.city.name,
+                            countryCode = response.city.country,
+                            population = response.city.population
+                        ))
+                    }
+                }
                 .subscribe(
-                    {response -> location.value = response.city },
-                    {error -> onError(error.message!!)
-                    error.printStackTrace()}
-                ))
-        return location
+                    { },
+                    {error -> error.printStackTrace()
+                    message.value = "City not found"}
+                )
+        )
     }
 
-    private fun onError(error: String){
-        if (error.contains("city not found", true)){
-            errorMessage.value = error
-        } else{
-            errorMessage.value = "Unable to proceed with the request please try again"
-        }
+    override fun getErrorMessage(): LiveData<String> = message
+
+    override fun dispose() {
+        compositeDisposable.clear()
     }
 }
