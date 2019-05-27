@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pixelart.windforecast.AppController
@@ -15,6 +16,7 @@ import com.pixelart.windforecast.R
 import com.pixelart.windforecast.adapter.LocationsAdapter
 import com.pixelart.windforecast.di.fragment.FragmentModule
 import kotlinx.android.synthetic.main.fragment_location.view.*
+import kotlinx.android.synthetic.main.location_adapter_layout.view.*
 import javax.inject.Inject
 
 class LocationFragment : Fragment(), LocationsAdapter.OnItemClickedListener {
@@ -74,6 +76,8 @@ class LocationFragment : Fragment(), LocationsAdapter.OnItemClickedListener {
     }
 
     override fun onItemClicked(position: Int) {
-
+        val itemView = rootView.rvLocations.findViewHolderForAdapterPosition(position)?.itemView
+        val direction = LocationFragmentDirections.actionLocationsToDetails(itemView?.tvLocationName?.text.toString())
+        itemView?.let { Navigation.findNavController(it).navigate(direction) }
     }
 }

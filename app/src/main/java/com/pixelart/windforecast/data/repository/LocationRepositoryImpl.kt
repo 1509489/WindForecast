@@ -20,7 +20,6 @@ class LocationRepositoryImpl(private val networkService: NetworkService, private
         Thread{
             database.getLocationDao().insert(location)
         }.start()
-        message.value = "success"
     }
 
     override fun getLocations(): LiveData<List<LocationEntity>> = database.getLocationDao().getLocations()
@@ -30,16 +29,15 @@ class LocationRepositoryImpl(private val networkService: NetworkService, private
             networkService.getWindForecast(locationName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnEvent{ response, _ ->
-                    if (response.cod == "200"){
-                        addLocations(LocationEntity(name = response.city.name,
-                            countryCode = response.city.country,
-                            population = response.city.population
-                        ))
-                    }
-                }
                 .subscribe(
-                    { },
+                    {response ->
+                        if (response.cod == "200"){
+                            addLocations(LocationEntity(name = response.city.name,
+                                countryCode = response.city.country
+                            ))
+                        }
+                        message.value = "success"
+                    },
                     {error -> error.printStackTrace()
                     message.value = "City not found"}
                 )

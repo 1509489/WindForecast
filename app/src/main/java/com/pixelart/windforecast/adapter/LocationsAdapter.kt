@@ -28,13 +28,10 @@ class LocationsAdapter(private val listener: OnItemClickedListener):
     
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         private val locationName: TextView = view.findViewById(R.id.tvLocationName)
-        private val population: TextView = view.findViewById(R.id.tvPopulation)
         
         fun setContent(location: LocationEntity){
             val name = "${location.name}, ${location.countryCode}"
             locationName.text = name
-            val populationText = "${itemView.context.resources.getString(R.string.population)} ${location.population}"
-            population.text = populationText
         }
     }
     

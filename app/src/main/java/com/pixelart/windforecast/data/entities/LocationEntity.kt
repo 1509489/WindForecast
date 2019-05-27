@@ -8,6 +8,5 @@ import com.pixelart.windforecast.common.TABLE_NAME
 data class LocationEntity(
     @PrimaryKey(autoGenerate = true) var id:Int? = null,
     var name: String,
-    var countryCode: String,
-    var population: Int
+    var countryCode: String
 )
