@@ -1,7 +1,17 @@
 <resources>
-    <string name="app_name">Wind Forecast</string>
+    <string name="app_name">Weather Alert</string>
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="location_icon">Location Icon</string>
+    <string name="population">Population:</string>
+
+    <string name="info">To get an accurate location data, prefix the location name with the country code separated by comma (Example: London, UK)</string>
+
+    <string name="enter_location_name">Enter Location Name</string>
+    <string name="info_button">Info Button</string>
+    <string name="add_location">Add Location</string>
+    <string name="add_favourite_location">Add Favourite Location</string>
+    <string name="directional_compass">Directional Compass</string>
+    <string name="winds_from_the">Winds from the</string>
+    <string name="line">Line</string>
 </resources>
