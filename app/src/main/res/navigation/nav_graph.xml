@@ -12,7 +12,9 @@
                 app:destination="@id/addLocationFragment"/>
     </fragment>
     <fragment android:id="@+id/detailFragment" android:name="com.pixelart.windforecast.ui.detailscreen.DetailFragment"
-              android:label="fragment_detail" tools:layout="@layout/fragment_detail"/>
+              android:label="fragment_detail" tools:layout="@layout/fragment_detail">
+        <argument android:name="locationName" app:argType="string"/>
+    </fragment>
     <fragment android:id="@+id/addLocationFragment"
               android:name="com.pixelart.windforecast.ui.locationscreen.AddLocationBottomSheet"
               android:label="Add Location"/>

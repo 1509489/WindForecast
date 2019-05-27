@@ -6,6 +6,7 @@ import androidx.room.Room
 import com.pixelart.windforecast.common.DATABASE_NAME
 import com.pixelart.windforecast.data.database.LocationDatabase
 import com.pixelart.windforecast.data.network.NetworkService
+import com.pixelart.windforecast.data.repository.ForecastRepositoryImpl
 import com.pixelart.windforecast.data.repository.LocationRepositoryImpl
 import dagger.Module
 import dagger.Provides
@@ -26,4 +27,8 @@ class ApplicationModule(private val application: Application) {
     @ApplicationScope
     fun providesLocationRepository(networkService: NetworkService, database: LocationDatabase): LocationRepositoryImpl =
             LocationRepositoryImpl(networkService, database)
+
+    @Provides
+    @ApplicationScope
+    fun providesForecastRepository(networkService: NetworkService): ForecastRepositoryImpl = ForecastRepositoryImpl(networkService)
 }
