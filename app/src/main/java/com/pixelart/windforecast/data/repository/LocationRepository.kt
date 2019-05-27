@@ -1,7 +1,6 @@
 package com.pixelart.windforecast.data.repository
 
 import androidx.lifecycle.LiveData
-import com.pixelart.windforecast.data.dto.City
 import com.pixelart.windforecast.data.entities.LocationEntity
 
 interface LocationRepository {
