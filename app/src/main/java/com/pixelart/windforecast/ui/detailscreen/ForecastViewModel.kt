@@ -7,6 +7,7 @@ class ForecastViewModel(private val repository: ForecastRepositoryImpl): ViewMod
 
     fun setWindForecast(locationName: String) = repository.getForecast(locationName)
     fun setCurrentWind(locationName: String) = repository.getCurrentWind(locationName)
+    fun setMessage() = repository.showMessage()
 
     override fun onCleared() {
         super.onCleared()

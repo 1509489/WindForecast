@@ -13,6 +13,7 @@ class ForecastRepositoryImpl(private val networkService: NetworkService): Foreca
     private val compositeDisposable = CompositeDisposable()
     private val forecastResponse = MutableLiveData<APIResponse>()
     private val currentWind = MutableLiveData<CurrentWindResponse>()
+    private val message = MutableLiveData<String>()
 
     override fun getForecast(locationName: String): LiveData<APIResponse> {
         compositeDisposable.add(
@@ -20,8 +21,10 @@ class ForecastRepositoryImpl(private val networkService: NetworkService): Foreca
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    {response -> forecastResponse.value = response},
-                    {error -> error.printStackTrace()}
+                    {response -> forecastResponse.value = response
+                    message.value = "success"},
+                    {error -> error.printStackTrace()
+                    message.value = "Unable to load forecast data"}
                 )
         )
         return forecastResponse
@@ -33,12 +36,16 @@ class ForecastRepositoryImpl(private val networkService: NetworkService): Foreca
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    {response -> currentWind.value = response},
-                    { error -> error.printStackTrace()}
+                    {response -> currentWind.value = response
+                        message.value = "success"},
+                    { error -> error.printStackTrace()
+                        message.value = "Unable to load forecast data" }
                 )
         )
         return currentWind
     }
+
+    override fun showMessage(): LiveData<String> = message
 
     override fun dispose() {
         compositeDisposable.clear()

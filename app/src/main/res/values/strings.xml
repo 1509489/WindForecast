@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Wind Forecast</string>
+    <string name="app_name">Weather Alert</string>
     <string name="action_settings">Settings</string>
 
     <string name="location_icon">Location Icon</string>
