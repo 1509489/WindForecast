@@ -5,7 +5,8 @@ import com.pixelart.windforecast.data.repository.ForecastRepositoryImpl
 
 class ForecastViewModel(private val repository: ForecastRepositoryImpl): ViewModel(){
 
-    fun getForecast(locationName: String) = repository.getForecast(locationName)
+    fun setWindForecast(locationName: String) = repository.getForecast(locationName)
+    fun setCurrentWind(locationName: String) = repository.getCurrentWind(locationName)
 
     override fun onCleared() {
         super.onCleared()

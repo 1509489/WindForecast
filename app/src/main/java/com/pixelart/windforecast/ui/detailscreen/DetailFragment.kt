@@ -46,7 +46,16 @@ class DetailFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getForecast(args.locationName).observe(this, Observer {response ->
+
+        viewModel.setCurrentWind(args.locationName).observe(this, Observer {response ->
+            rootView.apply {
+                tvCurrent.text = Utils.INSTANCE.timestampToDateLong(response.dt.toLong())
+                DirectionsMapper.windDirections(tvCurrentSpeed, ivCurrent,
+                    response.wind.deg.toDouble(), response.wind.speed)
+            }
+        })
+
+        viewModel.setWindForecast(args.locationName).observe(this, Observer { response ->
 
             if (response.list.isNotEmpty()){
 
@@ -63,17 +72,15 @@ class DetailFragment : Fragment() {
             }
 
             rootView.apply {
-                tvCurrent.text = Utils.INSTANCE.timestampToDateLong(forecasts[0].timeStamp.toLong())
                 tvSecond.text = Utils.INSTANCE.timestampToDayShort(forecasts[1].timeStamp.toLong())
                 tvThird.text = Utils.INSTANCE.timestampToDayShort(forecasts[2].timeStamp.toLong())
                 tvForth.text = Utils.INSTANCE.timestampToDayShort(forecasts[3].timeStamp.toLong())
                 tvFifth.text = Utils.INSTANCE.timestampToDayShort(forecasts[4].timeStamp.toLong())
 
-                DirectionsMapper.windDirectionsCurrent(tvCurrentSpeed, ivCurrent, forecasts[0].direction, forecasts[0].speed)
-                DirectionsMapper.windDirectionsForecast(tvSecondSpeed, ivSecond, forecasts[1].direction, forecasts[1].speed)
-                DirectionsMapper.windDirectionsForecast(tvThirdSpeed, ivThird, forecasts[2].direction, forecasts[2].speed)
-                DirectionsMapper.windDirectionsForecast(tvForthSpeed, ivForth, forecasts[3].direction, forecasts[3].speed)
-                DirectionsMapper.windDirectionsForecast(tvFifthSpeed, ivFifth, forecasts[4].direction, forecasts[4].speed)
+                DirectionsMapper.windDirections(tvSecondSpeed, ivSecond, forecasts[1].direction, forecasts[1].speed)
+                DirectionsMapper.windDirections(tvThirdSpeed, ivThird, forecasts[2].direction, forecasts[2].speed)
+                DirectionsMapper.windDirections(tvForthSpeed, ivForth, forecasts[3].direction, forecasts[3].speed)
+                DirectionsMapper.windDirections(tvFifthSpeed, ivFifth, forecasts[4].direction, forecasts[4].speed)
             }
         })
     }

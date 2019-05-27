@@ -1,4 +1,4 @@
-package com.pixelart.windforecast.data.dto
+package com.pixelart.windforecast.data.dto.forecast
 
 
 import com.google.gson.annotations.SerializedName

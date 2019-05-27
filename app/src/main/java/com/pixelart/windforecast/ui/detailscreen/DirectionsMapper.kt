@@ -8,162 +8,87 @@ import com.pixelart.windforecast.R
 
 object DirectionsMapper {
 
+    /**
+     * More conditions can be check to get an accurate direction
+     * The other 8 directions like (WNW, NNW, WSW, SSW, ENE, NNE, etc)
+     * can be added to the conditions
+     * */
+
     @SuppressLint("SetTextI18n")
-    fun windDirectionsCurrent(speedTextVew: TextView, directionImageView: ImageView, direction: Double, speed: Double){
+    fun windDirections(speedTextVew: TextView, directionImageView: ImageView, direction: Double, speed: Double){
         when {
             //Cardinal directions
-            //from s to n
-            direction == 0.0 || direction == 360.0 -> {
-                speedTextVew.text = "S at $speed meter/sec"
-
-                Glide.with(directionImageView.context)
-                    .load(R.drawable.from_s_to_n)
-                    .placeholder(R.drawable.directional_placeholder)
-                    .into(directionImageView)
-            }
-            //from w to e
-            direction == 90.0 -> {
-                speedTextVew.text = "W at $speed meter/sec"
-
-                Glide.with(directionImageView.context)
-                    .load(R.drawable.from_w_to_e)
-                    .placeholder(R.drawable.directional_placeholder)
-                    .into(directionImageView)
-            }
             //from n to s
-            direction == 180.0 -> {
+            direction == 0.0 || direction == 360.0 -> {
                 speedTextVew.text = "N at $speed meter/sec"
 
                 Glide.with(directionImageView.context)
-                    .load(R.drawable.from_n_to_s)
+                    .load(R.drawable.south)
                     .placeholder(R.drawable.directional_placeholder)
                     .into(directionImageView)
             }
             //from e to w
-            direction == 270.0 -> {
+            direction == 90.0 -> {
                 speedTextVew.text = "E at $speed meter/sec"
 
                 Glide.with(directionImageView.context)
-                    .load(R.drawable.from_e_to_w)
+                    .load(R.drawable.west)
+                    .placeholder(R.drawable.directional_placeholder)
+                    .into(directionImageView)
+            }
+            //from s to n
+            direction == 180.0 -> {
+                speedTextVew.text = "S at $speed meter/sec"
+
+                Glide.with(directionImageView.context)
+                    .load(R.drawable.north)
+                    .placeholder(R.drawable.directional_placeholder)
+                    .into(directionImageView)
+            }
+            //from w to e
+            direction == 270.0 -> {
+                speedTextVew.text = "W at $speed meter/sec"
+
+                Glide.with(directionImageView.context)
+                    .load(R.drawable.east)
                     .placeholder(R.drawable.directional_placeholder)
                     .into(directionImageView)
             }
 
             //InterCardinal directions
-            //from sw to ne
-            direction > 0.0 && direction < 90.0 -> {
-                speedTextVew.text = "SW at $speed meter/sec"
-
-                Glide.with(directionImageView.context)
-                    .load(R.drawable.from_sw_to_ne)
-                    .placeholder(R.drawable.directional_placeholder)
-                    .into(directionImageView)
-            }
-            //from nw to se
-            direction > 90.0 && direction < 180.0 -> {
-                speedTextVew.text = "NW at $speed meter/sec"
-
-                Glide.with(directionImageView.context)
-                    .load(R.drawable.from_nw_to_se)
-                    .placeholder(R.drawable.directional_placeholder)
-                    .into(directionImageView)
-            }
             //from ne to sw
-            direction > 180.0 && direction < 270.0 -> {
-                speedTextVew.text = "NE at $speed meter/sec"
-
-                Glide.with(directionImageView.context)
-                    .load(R.drawable.from_ne_to_sw)
-                    .placeholder(R.drawable.directional_placeholder)
-                    .into(directionImageView)
-            }
-            //from se to nw
-            direction > 270.0 && direction < 360.0 -> {
-                speedTextVew.text = "SE at $speed meter/sec"
-
-                Glide.with(directionImageView.context)
-                    .load(R.drawable.from_se_to_nw)
-                    .placeholder(R.drawable.directional_placeholder)
-                    .into(directionImageView)
-            }
-        }
-    }
-
-    @SuppressLint("SetTextI18n")
-    fun windDirectionsForecast(speedTextVew: TextView, directionImageView: ImageView, direction: Double, speed: Double){
-        when {
-            //Cardinal directions
-            //from s to n
-            direction == 0.0 || direction == 360.0 -> {
-                speedTextVew.text = "N at $speed meter/sec"
-
-                Glide.with(directionImageView.context)
-                    .load(R.drawable.from_s_to_n)
-                    .placeholder(R.drawable.directional_placeholder)
-                    .into(directionImageView)
-            }
-            //from w to e
-            direction == 90.0 -> {
-                speedTextVew.text = "E at $speed meter/sec"
-
-                Glide.with(directionImageView.context)
-                    .load(R.drawable.from_w_to_e)
-                    .placeholder(R.drawable.directional_placeholder)
-                    .into(directionImageView)
-            }
-            //from n to s
-            direction == 180.0 -> {
-                speedTextVew.text = "S at $speed meter/sec"
-
-                Glide.with(directionImageView.context)
-                    .load(R.drawable.from_n_to_s)
-                    .placeholder(R.drawable.directional_placeholder)
-                    .into(directionImageView)
-            }
-            //from e to w
-            direction == 270.0 -> {
-                speedTextVew.text = "W at $speed meter/sec"
-
-                Glide.with(directionImageView.context)
-                    .load(R.drawable.from_e_to_w)
-                    .placeholder(R.drawable.directional_placeholder)
-                    .into(directionImageView)
-            }
-
-            //InterCardinal directions
-            //from sw to ne
             direction > 0.0 && direction < 90.0 -> {
                 speedTextVew.text = "NE at $speed meter/sec"
 
                 Glide.with(directionImageView.context)
-                    .load(R.drawable.from_sw_to_ne)
-                    .placeholder(R.drawable.directional_placeholder)
-                    .into(directionImageView)
-            }
-            //from nw to se
-            direction > 90.0 && direction < 180.0 -> {
-                speedTextVew.text = "SE at $speed meter/sec"
-
-                Glide.with(directionImageView.context)
-                    .load(R.drawable.from_nw_to_se)
-                    .placeholder(R.drawable.directional_placeholder)
-                    .into(directionImageView)
-            }
-            //from ne to sw
-            direction > 180.0 && direction < 270.0 -> {
-                speedTextVew.text = "SW at $speed meter/sec"
-
-                Glide.with(directionImageView.context)
-                    .load(R.drawable.from_ne_to_sw)
+                    .load(R.drawable.southwest)
                     .placeholder(R.drawable.directional_placeholder)
                     .into(directionImageView)
             }
             //from se to nw
+            direction > 90.0 && direction < 180.0 -> {
+                speedTextVew.text = "SE at $speed meter/sec"
+
+                Glide.with(directionImageView.context)
+                    .load(R.drawable.northwest)
+                    .placeholder(R.drawable.directional_placeholder)
+                    .into(directionImageView)
+            }
+            //from sw to ne
+            direction > 180.0 && direction < 270.0 -> {
+                speedTextVew.text = "SW at $speed meter/sec"
+
+                Glide.with(directionImageView.context)
+                    .load(R.drawable.northeast)
+                    .placeholder(R.drawable.directional_placeholder)
+                    .into(directionImageView)
+            }
+            //from nw to se
             direction > 270.0 && direction < 360.0 -> {
                 speedTextVew.text = "NW at $speed meter/sec"
 
                 Glide.with(directionImageView.context)
-                    .load(R.drawable.from_se_to_nw)
+                    .load(R.drawable.southeast)
                     .placeholder(R.drawable.directional_placeholder)
                     .into(directionImageView)
             }
