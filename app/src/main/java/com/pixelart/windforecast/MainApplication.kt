@@ -6,7 +6,7 @@ import com.pixelart.windforecast.di.application.ApplicationModule
 import com.pixelart.windforecast.di.application.DaggerApplicationComponent
 import com.pixelart.windforecast.di.network.NetworkModule
 
-class AppController: Application() {
+class MainApplication: Application() {
     val applicationComponent: ApplicationComponent by lazy {
         DaggerApplicationComponent.builder()
             .networkModule(NetworkModule())

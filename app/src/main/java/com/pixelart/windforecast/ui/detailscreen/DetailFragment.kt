@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
-import com.pixelart.windforecast.AppController
+import com.pixelart.windforecast.MainApplication
 import com.pixelart.windforecast.R
 import com.pixelart.windforecast.common.Utils
 import com.pixelart.windforecast.data.model.Forecast
@@ -28,7 +28,7 @@ class DetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val fragmentComponent = (activity?.application as AppController)
+        val fragmentComponent = (activity?.application as MainApplication)
             .applicationComponent
             .newFragmentComponent(FragmentModule(this))
         fragmentComponent.injectDetailScreen(this)
@@ -48,7 +48,8 @@ class DetailFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.setMessage().observe(this, Observer {
-            Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
+            if (!it.contains("success", true))
+                Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
         })
 
         viewModel.setCurrentWind(args.locationName).observe(this, Observer {response ->

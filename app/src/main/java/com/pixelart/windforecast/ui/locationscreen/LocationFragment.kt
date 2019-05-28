@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.pixelart.windforecast.AppController
+import com.pixelart.windforecast.MainApplication
 import com.pixelart.windforecast.R
 import com.pixelart.windforecast.adapter.LocationsAdapter
 import com.pixelart.windforecast.di.fragment.FragmentModule
@@ -28,7 +28,7 @@ class LocationFragment : Fragment(), LocationsAdapter.OnItemClickedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val fragmentComponent = (activity?.application as AppController)
+        val fragmentComponent = (activity?.application as MainApplication)
             .applicationComponent
             .newFragmentComponent(FragmentModule(this))
         fragmentComponent.injectLocationScreen(this)
@@ -69,9 +69,10 @@ class LocationFragment : Fragment(), LocationsAdapter.OnItemClickedListener {
         })
 
         viewModel.showMessage().observe(this, Observer {
-            Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
             if (it.contains("success", true))
                 rootView.tvMessage.visibility = View.INVISIBLE
+            else
+                Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
         })
     }
 
