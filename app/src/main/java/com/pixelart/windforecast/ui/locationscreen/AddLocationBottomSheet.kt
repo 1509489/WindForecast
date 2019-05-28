@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.pixelart.windforecast.AppController
+import com.pixelart.windforecast.MainApplication
 import com.pixelart.windforecast.R
 import com.pixelart.windforecast.di.fragment.FragmentModule
 import kotlinx.android.synthetic.main.add_location_layout.view.*
@@ -21,7 +21,7 @@ class AddLocationBottomSheet: BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val fragmentComponent = (activity?.application as AppController)
+        val fragmentComponent = (activity?.application as MainApplication)
             .applicationComponent
             .newFragmentComponent(FragmentModule(this))
         fragmentComponent.injectAddLocation(this)
